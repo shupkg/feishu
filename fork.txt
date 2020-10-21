@@ -1,0 +1,6 @@
+fork time: 
+	Thu, 15 Oct 2020 16:54:53 +0800
+fork from:
+	https://github.com/galaxy-book/feishu-sdk-golang.git
+fork version:
+    v0.2.9-0-g0cef8b3 martin <1047853491@qq.com> 2020-09-07 16:54:08 +0800
