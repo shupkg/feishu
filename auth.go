@@ -5,6 +5,7 @@ import (
 	"github.com/shupkg/feishu/core/model/vo"
 	"github.com/shupkg/feishu/core/util/http"
 	"github.com/shupkg/feishu/core/util/json"
+	"github.com/shupkg/feishu/core/util/log"
 )
 
 //获取 app_access_token（企业自建应用）https://open.feishu.cn/document/ukTMukTMukTM/uADN14CM0UjLwQTN
@@ -15,6 +16,7 @@ func GetAppAccessTokenInternal(appId, appSecret string) (*vo.AppAccessTokenInter
 	}
 	respBody, err := http.Post(consts.ApiAppAccessTokenInternal, nil, json.ToJsonIgnoreError(reqBody))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.AppAccessTokenInternalRespVo{}
@@ -31,6 +33,7 @@ func GetAppAccessToken(appId, appSecret, appTicket string) (*vo.AppAccessTokenRe
 	}
 	respBody, err := http.Post(consts.ApiAppAccessToken, nil, json.ToJsonIgnoreError(reqBody))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.AppAccessTokenRespVo{}
@@ -46,6 +49,7 @@ func GetTenantAccessTokenInternal(appId string, appSecret string) (*vo.TenantAcc
 	}
 	respBody, err := http.Post(consts.ApiTenantAccessTokenInternal, nil, json.ToJsonIgnoreError(reqBody))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.TenantAccessTokenRespVo{}
@@ -61,6 +65,7 @@ func GetTenantAccessToken(appAccessToken string, tenantKey string) (*vo.TenantAc
 	}
 	respBody, err := http.Post(consts.ApiTenantAccessToken, nil, json.ToJsonIgnoreError(reqBody))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.TenantAccessTokenRespVo{}
@@ -76,6 +81,7 @@ func AppTicketResend(appId, appSecret string) (*vo.CommonVo, error) {
 	}
 	respBody, err := http.Post(consts.ApiAppTicketResend, nil, json.ToJsonIgnoreError(reqBody))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.CommonVo{}
@@ -87,6 +93,7 @@ func AppTicketResend(appId, appSecret string) (*vo.CommonVo, error) {
 func GetOauth2AccessToken(req vo.OAuth2AccessTokenReqVo) (*vo.OAuth2AccessTokenRespVo, error) {
 	respBody, err := http.Post(consts.ApiOAuth2AccessToken, nil, json.ToJsonIgnoreError(req))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.OAuth2AccessTokenRespVo{}
@@ -98,6 +105,7 @@ func GetOauth2AccessToken(req vo.OAuth2AccessTokenReqVo) (*vo.OAuth2AccessTokenR
 func GetOAuth2UserInfo(userAccessToken string) (*vo.OAuth2UserInfoRespVo, error) {
 	respBody, err := http.Get(consts.ApiOAuth2AccessToken, nil, http.BuildTokenHeaderOptions(userAccessToken))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.OAuth2UserInfoRespVo{}
@@ -112,6 +120,7 @@ func TokenLoginValidate(appAccessToken string, code string) (*vo.TokenLoginValid
 	}
 	respBody, err := http.Post(consts.ApiTokenLoginValidate, nil, json.ToJsonIgnoreError(req), http.BuildTokenHeaderOptions(appAccessToken))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.TokenLoginValidateResp{}
@@ -123,6 +132,7 @@ func TokenLoginValidate(appAccessToken string, code string) (*vo.TokenLoginValid
 func RefreshUserAccessToken(appId, appSecret, appTicket, refreshToken string) (*vo.RefreshAccessTokenResp, error) {
 	appAccessToken, err := GetAppAccessToken(appId, appSecret, appTicket)
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 
@@ -133,6 +143,7 @@ func RefreshUserAccessToken(appId, appSecret, appTicket, refreshToken string) (*
 	}
 	respBody, err := http.Post(consts.ApiRefreshAccessToken, nil, json.ToJsonIgnoreError(req))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.RefreshAccessTokenResp{}

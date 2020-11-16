@@ -5,12 +5,14 @@ import (
 	"github.com/shupkg/feishu/core/model/vo"
 	"github.com/shupkg/feishu/core/util/http"
 	"github.com/shupkg/feishu/core/util/json"
+	"github.com/shupkg/feishu/core/util/log"
 )
 
 //文档搜索 https://open.feishu.cn/document/ugTM5UjL4ETO14COxkTN/ugDM4UjL4ADO14COwgTN
 func (t Tenant) SearchDocs(userAccessToken string, req vo.SearchDocsReqVo) (*vo.SearchDocsRespVo, error) {
 	respBody, err := http.Post(consts.ApiSearchDocs, nil, json.ToJsonIgnoreError(req), http.BuildTokenHeaderOptions(userAccessToken))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.SearchDocsRespVo{}
@@ -22,6 +24,7 @@ func (t Tenant) SearchDocs(userAccessToken string, req vo.SearchDocsReqVo) (*vo.
 func (t Tenant) GetDocMeta(userAccessToken string, docToken string) (*vo.GetDocMetaRespVo, error) {
 	respBody, err := http.Get(consts.ApiGetDocMeta+"/"+docToken, nil, http.BuildTokenHeaderOptions(userAccessToken))
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 	respVo := &vo.GetDocMetaRespVo{}

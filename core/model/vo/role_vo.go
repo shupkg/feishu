@@ -10,7 +10,7 @@ type RoleListRespData struct {
 }
 
 type Role struct {
-	Id string `json:"id"`
+	Id   string `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -20,7 +20,7 @@ type RoleMemberListResp struct {
 }
 
 type RoleMemberListRespData struct {
-	HasMore bool `json:"has_more"`
-	PageToken string `json:"page_token"`
-	UserList []UserRestInfoVo `json:"user_list"`
+	HasMore   bool             `json:"has_more"`
+	PageToken string           `json:"page_token"`
+	UserList  []UserRestInfoVo `json:"user_list"`
 }

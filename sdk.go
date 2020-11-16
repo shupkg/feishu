@@ -1,13 +1,12 @@
 package feishu
 
 import (
-	"errors"
 	"fmt"
 )
 
 type App struct {
-	AppId string
-	AppSecret string
+	AppId          string
+	AppSecret      string
 	AppAccessToken string
 }
 
@@ -19,56 +18,56 @@ type User struct {
 	UserAccessToken string
 }
 
-func BuildInternalApp(appId, appSecret string) (*App, error){
+func BuildInternalApp(appId, appSecret string) (*App, error) {
 	resp, err := GetAppAccessTokenInternal(appId, appSecret)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
-	if resp.Code != 0{
-		return nil, errors.New(fmt.Sprintf("req err, code: %d, msg: %s", resp.Code, resp.Msg))
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("req err, code: %d, msg: %s", resp.Code, resp.Msg)
 	}
 	return &App{
-		AppId: appId,
-		AppSecret: appSecret,
+		AppId:          appId,
+		AppSecret:      appSecret,
 		AppAccessToken: appSecret,
 	}, nil
 }
 
-func BuildApp(appId, appSecret, appTicket string) (*App, error){
+func BuildApp(appId, appSecret, appTicket string) (*App, error) {
 	resp, err := GetAppAccessToken(appId, appSecret, appTicket)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
-	if resp.Code != 0{
-		return nil, errors.New(fmt.Sprintf("req err, code: %d, msg: %s", resp.Code, resp.Msg))
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("req err, code: %d, msg: %s", resp.Code, resp.Msg)
 	}
 	return &App{
-		AppId: appId,
-		AppSecret: appSecret,
+		AppId:          appId,
+		AppSecret:      appSecret,
 		AppAccessToken: resp.AppAccessToken,
 	}, nil
 }
 
-func BuildTenantInternal(appId, appSecret string) (*Tenant, error){
+func BuildTenantInternal(appId, appSecret string) (*Tenant, error) {
 	resp, err := GetTenantAccessTokenInternal(appId, appSecret)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
-	if resp.Code != 0{
-		return nil, errors.New(fmt.Sprintf("req err, code: %d, msg: %s", resp.Code, resp.Msg))
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("req err, code: %d, msg: %s", resp.Code, resp.Msg)
 	}
 	return &Tenant{
 		TenantAccessToken: resp.TenantAccessToken,
 	}, nil
 }
 
-func BuildTenant(appAccessToken, tenantKey string) (*Tenant, error){
+func BuildTenant(appAccessToken, tenantKey string) (*Tenant, error) {
 	resp, err := GetTenantAccessToken(appAccessToken, tenantKey)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
-	if resp.Code != 0{
-		return nil, errors.New(fmt.Sprintf("req err, code: %d, msg: %s", resp.Code, resp.Msg))
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("req err, code: %d, msg: %s", resp.Code, resp.Msg)
 	}
 	return &Tenant{
 		TenantAccessToken: resp.TenantAccessToken,

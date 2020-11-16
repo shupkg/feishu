@@ -1,6 +1,6 @@
 package vo
 
 type CommonVo struct {
-	Code int `json:"code"`
-	Msg string `json:"msg"`
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
 }

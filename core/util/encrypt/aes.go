@@ -7,7 +7,7 @@ import (
 	"errors"
 )
 
-func AesDecrypt(key string, encrypt string) (string, error){
+func AesDecrypt(key string, encrypt string) (string, error) {
 	kbs := SHA256(key)
 	decode, err := base64.StdEncoding.DecodeString(encrypt)
 	if err != nil {
@@ -18,7 +18,7 @@ func AesDecrypt(key string, encrypt string) (string, error){
 	}
 	iv := decode[:aes.BlockSize]
 	block, err := aes.NewCipher(kbs)
-	if err != nil{
+	if err != nil {
 		return "", err
 	}
 	blockMode := cipher.NewCBCDecrypter(block, iv)

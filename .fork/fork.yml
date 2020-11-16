@@ -1,0 +1,48 @@
+source: https://github.com/galaxy-book/feishu-sdk-golang.git
+before_shell: []
+process_file:
+  - type: replace
+    args:
+      - galaxy-book/feishu-sdk-golang
+      - shupkg/feishu
+  - type: replace
+    args:
+      - package sdk
+      - package feishu
+  - type: replace
+    args:
+      - "&params == nil ||"
+      - ""
+  - type: replace
+    args:
+      - fmt.Println(1111, reqBody)
+      - ""
+  - type: replace
+    args:
+      - _, err = io.Copy(part, file)
+      - _, _ = io.Copy(part, file)
+  - type: replace
+    args:
+      - 'request, err := http.NewRequest("POST", uri, body)'
+      - 'request, _ := http.NewRequest("POST", uri, body)'
+  - type: regexp
+    args:
+      - errors.New\(fmt.Sprintf\(([^)]+)\)\)
+      - fmt.Errorf($1)
+  - type: regexp
+    args:
+      - if ([\w]+) != nil && len\(\1\) > 0(\s*)\{
+      - if len($1) > 0 {
+after_shell:
+  - cp .fork/core.util.log.log.go.txt core/util/log/log.go
+  - "mv sdk/* . && rm -rf sdk"
+  - go mod init github.com/shupkg/feishu
+  - go mod tidy
+  - goreturns -w .
+  # - 'echo "fork from https://github.com/galaxy-book/feishu-sdk-golang.git" >> README.md'
+include:
+  - (.*).go$
+  - (.*)README.md$
+exclude:
+  - (.*)_test.go$
+  - (.*)\.git$
