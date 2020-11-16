@@ -89,7 +89,7 @@ FeiShu Server Api Doc ([https://open.feishu.cn/document/ukTMukTMukTM/uADN14CM0Uj
 ### fork from:
     https://github.com/galaxy-book/feishu-sdk-golang.git
 ### fork time:
-    2020-11-17T05:15:44+08:00
+    2020-11-17T05:24:33+08:00
 ### last commit:
     martin <1047853491@qq.com> 2020-11-12T20:47:27+08:00
 
